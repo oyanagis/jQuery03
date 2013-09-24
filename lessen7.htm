@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>残り文字数チェッカー</title>
+    <script src="./jquery-1.10.2.min.js"></script>
+    <style>
+    #memo {
+    	width: 500px;
+    	height: 150px;
+    }
+    .warning {
+    	color: red;
+    }
+    </style>
+</head>
+<body>
+    <h1>残り文字数チェッカー</h1>
+    <textarea id="memo"></textarea>
+    <div id="count"></div>
+    <script>
+    (function() {
+    	var LIMIT = 30;
+    	var WARNING = 10;
+    	var memo = document.getElementById('memo');
+    	var count = document.getElementById('count');
+    	
+    	count.innerHTML = LIMIT;
+    	
+    	function countCharas(textarea) {
+    		var remaining = LIMIT - textarea.value.length;
+    		count.innerHTML = remaining;
+    		if (remaining <= WARNING) {
+    			count.className = 'warning';
+    		} else {
+    			count.className = '';
+    		}
+    	}
+    	
+    	// IE8以下への対応
+    	
+    	if (memo.attachEvent) {
+    		// IE8以下
+    		memo.attachEvent('onkeyup', function(e) {
+    			countChars(e.srcElement);
+    		});
+    	} else {
+	    	memo.addEventListener('keyup', function() {
+	    		countCharas(this);
+	    	});
+    	}
+    	
+    	
+    })();
+    </script>
+</body>
+</html>
